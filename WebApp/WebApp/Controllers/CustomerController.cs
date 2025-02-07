@@ -15,23 +15,23 @@ namespace WebApp.Controllers
         private readonly MST_USERService _userService = new MST_USERService();
         private readonly CustomerSearchService _customerSearchService = new CustomerSearchService();
 
+        //vb宣言
+        private string vbCondCustomerIdFrom;
+        private string vbCondCustomerIdTo;
+        private bool vbCustomerType0;
+        private bool vbCustomerType1;
+        private bool vbCustomerType2;
+        private string vbKeyWord;
+        private string from;
+        private int vbSortCustId;
+        private int vbSortCustNm;
+        private int vbSortCustType;
+
         // GET: Customer
         [HttpGet]
         public ActionResult List()
         {
-            //vb宣言
-            string vbCondCustomerIdFrom;
-            string vbCondCustomerIdTo;
-            bool vbCustomerType0;
-            bool vbCustomerType1;
-            bool vbCustomerType2;
-            string vbKeyWord;
-            string from;
-            int vbSortCustId;
-            int vbSortCustNm;
-            int vbSortCustType;
-
-            //後で削除
+            //初期値設定
             vbCondCustomerIdFrom = "";
             vbCondCustomerIdTo = "";
             vbCustomerType0 = false;
