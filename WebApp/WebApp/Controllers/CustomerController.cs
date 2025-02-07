@@ -27,6 +27,9 @@ namespace WebApp.Controllers
             bool vbCustomerType2;
             string vbKeyWord;
             string from;
+            int vbSortCustId;
+            int vbSortCustNm;
+            int vbSortCustType;
 
             //後で削除
             vbCondCustomerIdFrom = "";
@@ -34,6 +37,9 @@ namespace WebApp.Controllers
             vbCustomerType0 = false;
             vbCustomerType1 = false;
             vbCustomerType2 = false;
+            vbSortCustId = 1;
+            vbSortCustNm = 0;
+            vbSortCustType = 0;
             vbKeyWord = "";
             //後で削除
 
@@ -92,6 +98,9 @@ namespace WebApp.Controllers
             ViewBag.CustomerType0 = vbCustomerType0;
             ViewBag.CustomerType1 = vbCustomerType1;
             ViewBag.CustomerType2= vbCustomerType2;
+            ViewBag.SortCustId = vbSortCustId;
+            ViewBag.SortCustNm = vbSortCustNm;
+            ViewBag.SortCustType = vbSortCustType;
             ViewBag.KeyWord = vbKeyWord;
 
             return View("CustomerList");

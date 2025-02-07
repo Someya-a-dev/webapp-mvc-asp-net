@@ -26,5 +26,11 @@ namespace WebApp.Models.Customer
 
         public bool chkCustomerType2 { get; set; }
         public string CondKeyword { get; set; }
+
+        public int? SortCustId  { get; set; }
+
+        public int? SortCustNm { get; set; }
+
+        public int? SortCustType { get; set; }
     }
 }

@@ -143,6 +143,12 @@
                 <div class="col-5">
                     @Html.TextBoxFor(m => m.CondKeyword, new { @class = "form-control", id = "txtCondKeyword", Value = ViewBag.KeyWord })
                 </div>
+                <div class="col-1">
+                    @Html.TextBoxFor(m => m.SortCustId, new { @class = "form-control", id = "txtSortCustId", Value = ViewBag.SortCustId })
+                    @Html.TextBoxFor(m => m.SortCustNm, new { @class = "form-control", id = "txtSortCustNm", Value = ViewBag.SortCustNm })
+                    @Html.TextBoxFor(m => m.SortCustId, new { @class = "form-control", id = "txtSortCustType", Value = ViewBag.SortCustType })
+
+                </div>
                 <div class="offset-2 col-2">
                     <button type="button" class="btn btn-secondary col-6" id="btnSearch">検索</button>
                 </div>
