@@ -23,9 +23,9 @@ namespace WebApp.Controllers
         private bool vbCustomerType2;
         private string vbKeyWord;
         private string from;
-        private int vbSortCustId;
-        private int vbSortCustNm;
-        private int vbSortCustType;
+        private string vbSortCustId;
+        private string vbSortCustNm;
+        private string vbSortCustType;
 
         // GET: Customer
         [HttpGet]
@@ -37,9 +37,9 @@ namespace WebApp.Controllers
             vbCustomerType0 = false;
             vbCustomerType1 = false;
             vbCustomerType2 = false;
-            vbSortCustId = 1;
-            vbSortCustNm = 0;
-            vbSortCustType = 0;
+            vbSortCustId = "▲";
+            vbSortCustNm = "△";
+            vbSortCustType = "△";
             vbKeyWord = "";
             //後で削除
 
