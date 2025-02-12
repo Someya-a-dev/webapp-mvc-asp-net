@@ -94,21 +94,25 @@
             $('#confirmModalCloseBtn').on('click', function(){
                 $('#confirmModal').modal('hide');
             });
+
             $('#lnkSortCustId').on('click', function () {
+                // 現在の状態を取得（trim() で余計なスペースを除去）
+                let currentSort = $("#txtSortCustId").val().trim();
+                let newSort;
+
+
                 // すべてのソート状態を "△" にリセット
                 $("#txtSortCustId, #txtSortCustNm, #txtSortCustType").val("△");
 
-                // 現在の状態を取得
-                let currentSort = $("#txtSortCustId").val();
-                let newSort;
-
-                // 状態を切り替え
+                // 状態を明示的に切り替え
                 if (currentSort === "△") {
                     newSort = "▲";
                 } else if (currentSort === "▲") {
                     newSort = "▼";
-                } else {
+                } else if (currentSort === "▼") {
                     newSort = "▲";
+                } else {
+                    newSort = "▲"; // 予期しない場合はリセット
                 }
 
                 // 新しい状態をセット
@@ -119,18 +123,20 @@
             });
 
             $('#lnkSortCustNm').on('click', function () {
+                // 現在の状態を取得（trim() で余計なスペースを除去）
+                let currentSort = $("#txtSortCustNm").val().trim();
+                let newSort;
+
                 // すべてのソート状態を "△" にリセット
                 $("#txtSortCustId, #txtSortCustNm, #txtSortCustType").val("△");
 
-                // 現在の状態を取得
-                let currentSort = $("#txtSortCustNm").val();
-                let newSort;
-
-                // 状態を切り替え
+                // 状態を明示的に切り替え
                 if (currentSort === "△") {
                     newSort = "▲";
                 } else if (currentSort === "▲") {
                     newSort = "▼";
+                } else if (currentSort === "▼") {
+                    newSort = "▲";
                 } else {
                     newSort = "▲";
                 }
@@ -143,18 +149,20 @@
             });
 
             $('#lnkSortCustType').on('click', function () {
+                // 現在の状態を取得（trim() で余計なスペースを除去）
+                let currentSort = $("#txtSortCustType").val().trim();
+                let newSort;
+
                 // すべてのソート状態を "△" にリセット
                 $("#txtSortCustId, #txtSortCustNm, #txtSortCustType").val("△");
 
-                // 現在の状態を取得
-                let currentSort = $("#txtSortCustType").val();
-                let newSort;
-
-                // 状態を切り替え
+                // 状態を明示的に切り替え
                 if (currentSort === "△") {
                     newSort = "▲";
                 } else if (currentSort === "▲") {
                     newSort = "▼";
+                } else if (currentSort === "▼") {
+                    newSort = "▲";
                 } else {
                     newSort = "▲";
                 }
