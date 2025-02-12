@@ -95,15 +95,75 @@
                 $('#confirmModal').modal('hide');
             });
             $('#lnkSortCustId').on('click', function () {
-                
+                // すべてのソート状態を "△" にリセット
+                $("#txtSortCustId, #txtSortCustNm, #txtSortCustType").val("△");
+
+                // 現在の状態を取得
+                let currentSort = $("#txtSortCustId").val();
+                let newSort;
+
+                // 状態を切り替え
+                if (currentSort === "△") {
+                    newSort = "▲";
+                } else if (currentSort === "▲") {
+                    newSort = "▼";
+                } else {
+                    newSort = "▲";
+                }
+
+                // 新しい状態をセット
+                $("#txtSortCustId").val(newSort);
+
+                // フォームを submit
+                //$("form").submit();
             });
 
             $('#lnkSortCustNm').on('click', function () {
+                // すべてのソート状態を "△" にリセット
+                $("#txtSortCustId, #txtSortCustNm, #txtSortCustType").val("△");
 
+                // 現在の状態を取得
+                let currentSort = $("#txtSortCustNm").val();
+                let newSort;
+
+                // 状態を切り替え
+                if (currentSort === "△") {
+                    newSort = "▲";
+                } else if (currentSort === "▲") {
+                    newSort = "▼";
+                } else {
+                    newSort = "▲";
+                }
+
+                // 新しい状態をセット
+                $("#txtSortCustNm").val(newSort);
+
+                // フォームを submit
+                //$("form").submit();
             });
 
             $('#lnkSortCustType').on('click', function () {
+                // すべてのソート状態を "△" にリセット
+                $("#txtSortCustId, #txtSortCustNm, #txtSortCustType").val("△");
 
+                // 現在の状態を取得
+                let currentSort = $("#txtSortCustType").val();
+                let newSort;
+
+                // 状態を切り替え
+                if (currentSort === "△") {
+                    newSort = "▲";
+                } else if (currentSort === "▲") {
+                    newSort = "▼";
+                } else {
+                    newSort = "▲";
+                }
+
+                // 新しい状態をセット
+                $("#txtSortCustType").val(newSort);
+
+                // フォームを submit
+                //$("form").submit();
             });
 		});
 
