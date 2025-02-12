@@ -69,6 +69,9 @@ namespace WebApp.Controllers
                     vbCustomerType0 = false;
                     vbCustomerType1 = false;
                     vbCustomerType2 = false;
+                    vbSortCustId = "▲";
+                    vbSortCustNm = "△";
+                    vbSortCustType = "△";
                     vbKeyWord = "";
                     break;
                 case "INPUT":
