@@ -95,6 +95,16 @@
                 $('#confirmModal').modal('hide');
             });
 
+            function updateSortMark() {
+                let sortCustId = document.getElementById("txtSortCustId").value || "";
+                let sortCustNm = document.getElementById("txtSortCustNm").value || "";
+                let sortCustType = document.getElementById("txtSortCustType").value || "";
+
+                document.getElementById("lnkSortCustId").innerHTML = '顧客ID ' + sortCustId;
+                document.getElementById("lnkSortCustNm").innerHTML = '顧客名 ' + sortCustNm;
+                document.getElementById("lnkSortCustType").innerHTML = '顧客種別 ' + sortCustType;
+            }
+
             $('#lnkSortCustId').on('click', function () {
                 // 現在の状態を取得（trim() で余計なスペースを除去）
                 let currentSort = $("#txtSortCustId").val().trim();
@@ -117,9 +127,10 @@
 
                 // 新しい状態をセット
                 $("#txtSortCustId").val(newSort);
+                updateSortMark()
 
                 // フォームを submit
-                //$("form").submit();
+                $("form").submit();
             });
 
             $('#lnkSortCustNm').on('click', function () {
@@ -143,9 +154,10 @@
 
                 // 新しい状態をセット
                 $("#txtSortCustNm").val(newSort);
+                updateSortMark()
 
                 // フォームを submit
-                //$("form").submit();
+                $("form").submit();
             });
 
             $('#lnkSortCustType').on('click', function () {
@@ -169,9 +181,10 @@
 
                 // 新しい状態をセット
                 $("#txtSortCustType").val(newSort);
+                updateSortMark()
 
                 // フォームを submit
-                //$("form").submit();
+                $("form").submit();
             });
 		});
 
