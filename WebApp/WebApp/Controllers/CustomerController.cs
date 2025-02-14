@@ -26,6 +26,8 @@ namespace WebApp.Controllers
         private string vbSortCustId;
         private string vbSortCustNm;
         private string vbSortCustType;
+        private int vbSearchDataFrom;
+        private int vbSearchDataTo;
 
         // GET: Customer
         [HttpGet]
@@ -41,6 +43,8 @@ namespace WebApp.Controllers
             vbSortCustNm = "△";
             vbSortCustType = "△";
             vbKeyWord = "";
+            vbSearchDataFrom = 0;
+            vbSearchDataTo = 10;
             //後で削除
 
             // ※２．ログイン済みのチェック
@@ -105,6 +109,8 @@ namespace WebApp.Controllers
             ViewBag.SortCustNm = vbSortCustNm;
             ViewBag.SortCustType = vbSortCustType;
             ViewBag.KeyWord = vbKeyWord;
+            ViewBag.SearchDataFrom = vbSearchDataFrom;
+            ViewBag.SearchDataTo = vbSearchDataTo;
 
             return View("CustomerList");
         }
@@ -158,6 +164,8 @@ namespace WebApp.Controllers
             ViewBag.SortCustNm = form.SortCustNm;
             ViewBag.SortCustType = form.SortCustType;
             ViewBag.KeyWord = form.CondKeyword;
+            ViewBag.SearchDataFrom = form.SearchDataFrom;
+            ViewBag.SearchDataTo = form.SearchDataTo;
 
             return View("CustomerList");
         }

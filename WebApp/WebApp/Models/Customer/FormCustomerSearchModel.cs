@@ -32,5 +32,9 @@ namespace WebApp.Models.Customer
         public string SortCustNm { get; set; }
 
         public string SortCustType { get; set; }
+
+        public int SearchDataFrom { get; set; }
+
+        public int SearchDataTo { get; set; }
     }
 }
