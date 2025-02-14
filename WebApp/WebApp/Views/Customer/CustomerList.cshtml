@@ -192,7 +192,7 @@
 </head>
 <body>
     <div class="container body-content">
-        @using (Html.BeginForm("Search", "Customer/List", FormMethod.Post))
+        @using (Html.BeginForm("List", "Customer", FormMethod.Post))
         {
             <div class="form-group row">
                 <div class="col-1">顧客ID</div>
@@ -227,7 +227,7 @@
                 <div class="col-1">
                     @Html.TextBoxFor(m => m.SortCustId, new { @class = "form-control", id = "txtSortCustId", Value = ViewBag.SortCustId })
                     @Html.TextBoxFor(m => m.SortCustNm, new { @class = "form-control", id = "txtSortCustNm", Value = ViewBag.SortCustNm })
-                    @Html.TextBoxFor(m => m.SortCustId, new { @class = "form-control", id = "txtSortCustType", Value = ViewBag.SortCustType })
+                    @Html.TextBoxFor(m => m.SortCustType, new { @class = "form-control", id = "txtSortCustType", Value = ViewBag.SortCustType })
 
                 </div>
                 <div class="offset-2 col-2">
@@ -275,17 +275,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ( var customer in ViewBag.SearchResult)
+                            @if (ViewBag.SearchResult != null)
                             {
-                                <tr>
-                                    <td class="col-1 text-center"><input type="checkbox" name="chkChoice" class="clsChoice form-check-input" value="@customer.Type"></td>
-                                    <td class="col-1"><a href="CustomerInput.html">@customer.ID</a></td>
-                                    <td class="col-2">@customer.Name</td>
-                                    <td class="col-1">@customer.Type</td>
-                                    <td class="col-2">@customer.PhoneNumber</td>
-                                    <td class="col-1">@customer.ZipCode</td>
-                                    <td class="col-4">@customer.Address</td>
-                                </tr>
+                                foreach (var customer in ViewBag.SearchResult)
+                                {
+                                    <tr>
+                                        <td class="col-1 text-center"><input type="checkbox" name="chkChoice" class="clsChoice form-check-input" value="@customer.Type"></td>
+                                        <td class="col-1"><a href="CustomerInput.html">@customer.ID</a></td>
+                                        <td class="col-2">@customer.Name</td>
+                                        <td class="col-1">@customer.Type</td>
+                                        <td class="col-2">@customer.PhoneNumber</td>
+                                        <td class="col-1">@customer.ZipCode</td>
+                                        <td class="col-4">@customer.Address</td>
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>
