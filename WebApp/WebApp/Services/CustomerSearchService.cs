@@ -1,8 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -94,7 +94,7 @@ namespace WebApp.Services
                     ZIPCODE AS ZipCode, 
                     ADDRESS AS Address
                 FROM MST_CUSTOMER
-                WHERE 1=1
+                WHERE 1=1 
             ";
 
             var parameters = new List<SqlParameter>();  // これをメソッドの最初に追加
@@ -104,7 +104,7 @@ namespace WebApp.Services
                 try // CondCustomerIdFromString
                 {
                     int idFrom = int.Parse(model.CondCustomerIdFromString);
-                    sql += "AND CUST_ID <= @idFrom";
+                    sql += " AND CUST_ID <= @idFrom ";
                     parameters.Add(new SqlParameter("@idFrom", idFrom));  // パラメータ追加
                 }
                 catch (FormatException ex) { Debug.WriteLine(ex); }
@@ -115,37 +115,33 @@ namespace WebApp.Services
                 try // CondCustomerIdToString
                 {
                     int idTo = int.Parse(model.CondCustomerIdToString);
-                    sql += "AND CUST_ID >= @idTo";
+                    sql += " AND CUST_ID >= @idTo ";
                     parameters.Add(new SqlParameter("@idTo", idTo));
                 }
                 catch (FormatException ex) { Debug.WriteLine(ex); }
             }
 
             //chkCustomerTypeの判定
-            string CustomerTypeString;
+            string CustomerTypeString=null;
             if (model.chkCustomerType0)
             {
                 CustomerTypeString = "00";
+                sql += " OR CUST_TYPE = @CustomerType00 ";
+                parameters.Add(new SqlParameter("@CustomerType00", CustomerTypeString));
             }
-            else if (model.chkCustomerType1)
+            if (model.chkCustomerType1)
             {
                 CustomerTypeString = "01";
+                sql += " OR CUST_TYPE = @CustomerType01 ";
+                parameters.Add(new SqlParameter("@CustomerType01", CustomerTypeString));
             }
-            else if (model.chkCustomerType2)
+            if (model.chkCustomerType2)
             {
                 CustomerTypeString = "02";
-            }
-            else
-            {
-                CustomerTypeString = null;
+                sql += " OR CUST_TYPE = @CustomerType02 ";
+                parameters.Add(new SqlParameter("@CustomerType02", CustomerTypeString));
             }
 
-            if (!CustomerTypeString.IsNullOrEmpty())
-            {
-                sql += "AND CUST_TYPE = @CustomerType";
-                parameters.Add(new SqlParameter("@CustomerType", CustomerTypeString));
-
-            }
             // SQLデバッグ用
             Debug.WriteLine("現在のSQLクエリ: " + sql);
             foreach (var param in parameters)
