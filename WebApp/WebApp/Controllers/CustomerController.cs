@@ -78,6 +78,19 @@ namespace WebApp.Controllers
                     vbSortCustType = "△";
                     vbKeyWord = "";
                     break;
+                case "SORT":
+                    vbCondCustomerIdFrom = Session["CondcustomerIdFrom"].ToString();
+                    vbCondCustomerIdTo = Session["CondCustomerIdTo"].ToString(); 
+                    vbCustomerType0 = (bool)Session["CustomerType0"];
+                    vbCustomerType1 = (bool)Session["CustomerType1"];
+                    vbCustomerType2 = (bool)Session["CustomerType2"];
+                    vbSortCustId = Session["SortCustId"].ToString();
+                    vbSortCustNm = Session["SortCustNm"].ToString();
+                    vbSortCustType = Session["SortCustType"].ToString();
+                    vbKeyWord = Session["KeyWord"].ToString();
+                    vbSearchDataFrom = (int)Session["SearchDataFrom"];
+                    vbSearchDataTo = (int)Session["SearchDataTo"];
+                    break;
                 case "INPUT":
                 case "CONFIRM":
                     break;
@@ -129,7 +142,7 @@ namespace WebApp.Controllers
             //遷移の確認
             if (TempData["From"] != null)
             {
-                from = "Search";
+                from = "SORT";
                 TempData["From"] = from; //再度登録してリロードできるように
             }
             else
@@ -153,21 +166,21 @@ namespace WebApp.Controllers
             Debug.WriteLine($"SortCustNm: {form.SortCustNm}");
             Debug.WriteLine($"SortCustType: {form.SortCustType}");
 
-            ViewBag.Title = "顧客一覧";
-            ViewBag.Name = _userService.GetName(Session["USER_CD"].ToString());
-            ViewBag.CondCustomerIdFrom = form.CondCustomerIdFromString;
-            ViewBag.CondCustomerIdTo = form.CondCustomerIdToString;
-            ViewBag.CustomerType0 = form.chkCustomerType0;
-            ViewBag.CustomerType1 = form.chkCustomerType1;
-            ViewBag.CustomerType2 = form.chkCustomerType2;
-            ViewBag.SortCustId = form.SortCustId;
-            ViewBag.SortCustNm = form.SortCustNm;
-            ViewBag.SortCustType = form.SortCustType;
-            ViewBag.KeyWord = form.CondKeyword;
-            ViewBag.SearchDataFrom = form.SearchDataFrom;
-            ViewBag.SearchDataTo = form.SearchDataTo;
+            Session["Title"] = "顧客一覧";
+            Session["Name"] = _userService.GetName(Session["USER_CD"].ToString());
+            Session["CondCustomerIdFrom"] = form.CondCustomerIdFromString ?? "";
+            Session["CondCustomerIdTo"] = form.CondCustomerIdToString ?? "";
+            Session["CustomerType0"] = form.chkCustomerType0 ?? false;
+            Session["CustomerType1"] = form.chkCustomerType1 ?? false;
+            Session["CustomerType2"] = form.chkCustomerType2 ?? false;
+            Session["SortCustId"] = form.SortCustId ?? "";
+            Session["SortCustNm"] = form.SortCustNm ?? "";
+            Session["SortCustType"] = form.SortCustType ?? "";
+            Session["KeyWord"] = form.CondKeyword ?? "";
+            Session["SearchDataFrom"] = form.SearchDataFrom;
+            Session["SearchDataTo"] = form.SearchDataTo;
 
-            return View("CustomerList");
+            return RedirectToAction("List","Customer");
         }
 
     }
