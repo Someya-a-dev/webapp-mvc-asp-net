@@ -148,22 +148,6 @@ namespace WebApp.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            //入力チェック
-            //CondCustomerIdFromとCondCustomerIdToが数字がチェック
-            // Debug用のConsole出力
-            Debug.WriteLine("==== Customer Search Form Data ====");
-            Debug.WriteLine($"CondCustomerIdFromString: {form.CondCustomerIdFromString}");
-            Debug.WriteLine($"CondCustomerIdToString: {form.CondCustomerIdToString}");
-            Debug.WriteLine($"CondCustomerIdFrom: {form.CondCustomerIdFrom}");
-            Debug.WriteLine($"CondCustomerIdTo: {form.CondCustomerIdTo}");
-            Debug.WriteLine($"chkCustomerType0: {form.chkCustomerType0}");
-            Debug.WriteLine($"chkCustomerType1: {form.chkCustomerType1}");
-            Debug.WriteLine($"chkCustomerType2: {form.chkCustomerType2}");
-            Debug.WriteLine($"CondKeyword: {form.CondKeyword}");
-            Debug.WriteLine($"SortCustId: {form.SortCustId}");
-            Debug.WriteLine($"SortCustNm: {form.SortCustNm}");
-            Debug.WriteLine($"SortCustType: {form.SortCustType}");
-
             Session["Title"] = "顧客一覧";
             Session["Name"] = _userService.GetName(Session["USER_CD"].ToString());
             Session["CondCustomerIdFrom"] = form.CondCustomerIdFromString ?? "";
