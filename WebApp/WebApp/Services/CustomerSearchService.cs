@@ -123,23 +123,29 @@ namespace WebApp.Services
 
             //chkCustomerTypeの判定
             string CustomerTypeString=null;
-            if (model.chkCustomerType0)
+            if (model.chkCustomerType0 || model.chkCustomerType1 || model.chkCustomerType2)
             {
-                CustomerTypeString = "00";
-                sql += " OR CUST_TYPE = @CustomerType00 ";
-                parameters.Add(new SqlParameter("@CustomerType00", CustomerTypeString));
-            }
-            if (model.chkCustomerType1)
-            {
-                CustomerTypeString = "01";
-                sql += " OR CUST_TYPE = @CustomerType01 ";
-                parameters.Add(new SqlParameter("@CustomerType01", CustomerTypeString));
-            }
-            if (model.chkCustomerType2)
-            {
-                CustomerTypeString = "02";
-                sql += " OR CUST_TYPE = @CustomerType02 ";
-                parameters.Add(new SqlParameter("@CustomerType02", CustomerTypeString));
+                sql += " AND (";
+
+                if (model.chkCustomerType0)
+                {
+                    sql += " CUST_TYPE = @CustomerType00 OR";
+                    parameters.Add(new SqlParameter("@CustomerType00", "00"));
+                }
+                if (model.chkCustomerType1)
+                {
+                    sql += " CUST_TYPE = @CustomerType01 OR";
+                    parameters.Add(new SqlParameter("@CustomerType01", "01"));
+                }
+                if (model.chkCustomerType2)
+                {
+                    sql += " CUST_TYPE = @CustomerType02 OR";
+                    parameters.Add(new SqlParameter("@CustomerType02", "02"));
+                }
+
+                // 最後のORを削除
+                sql = sql.TrimEnd("OR".ToCharArray());
+                sql += ")";
             }
 
             // SQLデバッグ用
