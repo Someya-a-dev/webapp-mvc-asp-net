@@ -31,7 +31,7 @@ namespace WebApp.Controllers
 
         // GET: Customer
         [HttpGet]
-        public ActionResult List()
+        public ActionResult Search(FormCustomerSearchModel formModel = null)
         {
             //初期値設定
             vbCondCustomerIdFrom = "";
@@ -44,7 +44,7 @@ namespace WebApp.Controllers
             vbSortCustType = "△";
             vbKeyWord = "";
             vbSearchDataFrom = 0;
-            vbSearchDataTo = 10;
+            vbSearchDataTo = 4;
             //後で削除
 
             // ※２．ログイン済みのチェック
@@ -65,6 +65,7 @@ namespace WebApp.Controllers
             }
 
             //モード別の処理
+            List<DBCustomerSearchModel> SearchResult = new List<DBCustomerSearchModel>();
             switch (from)
             {
                 case "LOGIN":
@@ -77,6 +78,7 @@ namespace WebApp.Controllers
                     vbSortCustNm = "△";
                     vbSortCustType = "△";
                     vbKeyWord = "";
+                    SearchResult = _customerSearchService.GetCustomerFirstToTen();
                     break;
                 case "SORT":
                     vbCondCustomerIdFrom = Session["CondcustomerIdFrom"].ToString();
@@ -90,6 +92,11 @@ namespace WebApp.Controllers
                     vbKeyWord = Session["KeyWord"].ToString();
                     vbSearchDataFrom = (int)Session["SearchDataFrom"];
                     vbSearchDataTo = (int)Session["SearchDataTo"];
+
+                    if(formModel != null)
+                    {
+                        SearchResult = _customerSearchService.Getcustomer(formModel);
+                    }
                     break;
                 case "INPUT":
                 case "CONFIRM":
@@ -100,17 +107,8 @@ namespace WebApp.Controllers
                     break;
             }
 
-            try
-            {
-                //検索
-                List <DBCustomerSearchModel>  SearchResult = _customerSearchService.GetCustomerFirstToTen();
-                ViewBag.SearchResult = SearchResult;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
             //Form初期表示
+            ViewBag.SearchResult = SearchResult; //検索結果
             ViewBag.Title = "顧客一覧";
             ViewBag.Name = _userService.GetName(Session["USER_CD"].ToString());
             ViewBag.CondCustomerIdFrom = vbCondCustomerIdFrom;
@@ -170,9 +168,9 @@ namespace WebApp.Controllers
             Session["Name"] = _userService.GetName(Session["USER_CD"].ToString());
             Session["CondCustomerIdFrom"] = form.CondCustomerIdFromString ?? "";
             Session["CondCustomerIdTo"] = form.CondCustomerIdToString ?? "";
-            Session["CustomerType0"] = form.chkCustomerType0 ?? false;
-            Session["CustomerType1"] = form.chkCustomerType1 ?? false;
-            Session["CustomerType2"] = form.chkCustomerType2 ?? false;
+            Session["CustomerType0"] = form.chkCustomerType0;
+            Session["CustomerType1"] = form.chkCustomerType1;
+            Session["CustomerType2"] = form.chkCustomerType2;
             Session["SortCustId"] = form.SortCustId ?? "";
             Session["SortCustNm"] = form.SortCustNm ?? "";
             Session["SortCustType"] = form.SortCustType ?? "";
@@ -180,7 +178,7 @@ namespace WebApp.Controllers
             Session["SearchDataFrom"] = form.SearchDataFrom;
             Session["SearchDataTo"] = form.SearchDataTo;
 
-            return RedirectToAction("List","Customer");
+            return RedirectToAction("Search","Customer" ,form);
         }
 
     }

@@ -20,11 +20,11 @@ namespace WebApp.Models.Customer
         [Range(0, 99999999, ErrorMessage = "8桁以内の数値を入力してください。")]
         public int? CondCustomerIdTo { get; set; }
 
-        public bool? chkCustomerType0 { get; set; }
+        public bool chkCustomerType0 { get; set; }
 
-        public bool? chkCustomerType1 { get; set; }
+        public bool chkCustomerType1 { get; set; }
 
-        public bool? chkCustomerType2 { get; set; }
+        public bool chkCustomerType2 { get; set; }
         public string CondKeyword { get; set; }
 
         public string SortCustId  { get; set; }

@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using WebApp.Models.Customer;
@@ -32,7 +35,7 @@ namespace WebApp.Services
             return _dbContext.Database.SqlQuery<DBCustomerSearchModel>(sql).ToList();
         }
 
-        public List<DBCustomerSearchModel> Getcustomer(DBCustomerSearchModel model)
+        public List<DBCustomerSearchModel> Getcustomer(FormCustomerSearchModel model)
         {
             //順番
             //SELECT    取得する項目
@@ -94,7 +97,63 @@ namespace WebApp.Services
                 WHERE 1=1
             ";
 
+            var parameters = new List<SqlParameter>();  // これをメソッドの最初に追加
 
+            if (!model.CondCustomerIdFromString.IsNullOrEmpty())
+            {
+                try // CondCustomerIdFromString
+                {
+                    int idFrom = int.Parse(model.CondCustomerIdFromString);
+                    sql += "AND CUST_ID <= @idFrom";
+                    parameters.Add(new SqlParameter("@idFrom", idFrom));  // パラメータ追加
+                }
+                catch (FormatException ex) { Debug.WriteLine(ex); }
+            }
+
+            if(!model.CondCustomerIdToString.IsNullOrEmpty())
+            {
+                try // CondCustomerIdToString
+                {
+                    int idTo = int.Parse(model.CondCustomerIdToString);
+                    sql += "AND CUST_ID >= @idTo";
+                    parameters.Add(new SqlParameter("@idTo", idTo));
+                }
+                catch (FormatException ex) { Debug.WriteLine(ex); }
+            }
+
+            //chkCustomerTypeの判定
+            string CustomerTypeString;
+            if (model.chkCustomerType0)
+            {
+                CustomerTypeString = "00";
+            }
+            else if (model.chkCustomerType1)
+            {
+                CustomerTypeString = "01";
+            }
+            else if (model.chkCustomerType2)
+            {
+                CustomerTypeString = "02";
+            }
+            else
+            {
+                CustomerTypeString = null;
+            }
+
+            if (!CustomerTypeString.IsNullOrEmpty())
+            {
+                sql += "AND CUST_TYPE = @CustomerType";
+                parameters.Add(new SqlParameter("@CustomerType", CustomerTypeString));
+
+            }
+            // SQLデバッグ用
+            Debug.WriteLine("現在のSQLクエリ: " + sql);
+            foreach (var param in parameters)
+            {
+                Debug.WriteLine($"パラメータ: {param.ParameterName} = {param.Value}");
+            }
+
+            return _dbContext.Database.SqlQuery<DBCustomerSearchModel>(sql, parameters.ToArray()).ToList();
         }
     }
 }

@@ -57,7 +57,7 @@ namespace WebApp.Controllers
 
                         // ログイン成功時の処理（顧客一覧）
                         TempData["From"] = "LOGIN"; //どこから遷移してきたのか情報を渡す
-                        return RedirectToAction("Index", "Customer/List");
+                        return RedirectToAction("Index", "Customer/Search");
                     }
                 }
                 string ErrorMessage = "ログインIDまたはパスワードが間違っています。";
